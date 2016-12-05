@@ -29,10 +29,7 @@ func main() {
     // }`)
 
     // Initialize cluster with the contact points from the address translator.
-	cluster, err := gocql.NewClusterWithPort(cat.ContactPoints()...)
-	if err != nil {
-		panic(err)
-	}    
+	cluster := gocql.NewCluster(cat.ContactPoints()...)  
     // Set your username and password
 	cluster.Authenticator = gocql.PasswordAuthenticator{
 		Username: "{REDACTED}",
