@@ -71,7 +71,8 @@ func (cat ComposeAddressTranslator) Translate(addr net.IP, port int) (net.IP, in
 func (cat ComposeAddressTranslator) ContactPoints() []string {
 	s := make([]string, len(cat.Map))
 	i := 0
-	for _, h := range cat.Map {
+	// Return the _internal_ IP addresses as gocql seems to expect these
+	for h := range cat.Map {
 		s[i] = h
 		i++
 	}
