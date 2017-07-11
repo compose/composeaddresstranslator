@@ -72,7 +72,7 @@ func (cat ComposeAddressTranslator) ContactPoints() []string {
 	s := make([]string, len(cat.Map))
 	i := 0
 	// Return the _internal_ IP addresses as gocql seems to expect these
-	for h, _ := range cat.Map {
+	for h := range cat.Map {
 		s[i] = h
 		i++
 	}
