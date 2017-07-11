@@ -52,8 +52,8 @@ func TestContactPoints(t *testing.T) {
 		"127.0.0.1:2": "192.168.1.1:3",
 	}}.ContactPoints()
 	want := []string{
-		"192.168.1.1:1",
-		"192.168.1.1:3",
+		"127.0.0.1:0",
+		"127.0.0.1:2",
 	}
 	if !reflect.DeepEqual(got, want) {
 		t.Errorf("got: %v, wanted: %v", got, want)

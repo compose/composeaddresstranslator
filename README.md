@@ -37,6 +37,9 @@ func main() {
 	}
     // Set the address translator for this cluster to our ComposeAddressTranslator
 	cluster.AddressTranslator = cat
+	// This seems to be necessary to avoid gocql attempting to fetch info from cluster about 
+	// the seed node's external IP which fails with a warning.
+	cluster.IgnorePeerAddr = true
 
     cluster.Keyspace = "test"
 	session, err := cluster.CreateSession()
