@@ -52,7 +52,18 @@ func (cat ComposeAddressTranslator) Translate(addr net.IP, port int) (net.IP, in
 		if err != nil {
 			return addr, port
 		}
-		return net.ParseIP(a), port
+		// See if it was passed as IP addresses
+		ip := net.ParseIP(a)
+		if ip != nil {
+			return ip, port
+		}
+		// We have a hostname, do DNS lookup and use first response (gocql makes same assumption
+		// about multiple A records)
+		ips, err := net.LookupIP(a)
+		if err != nil || len(ips) < 1 {
+			return addr, port
+		}
+		return ips[0], port
 	}
 	return addr, port
 }
